@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love App</title>
+    <style>
+        body {
+            background-color: pink;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: red;
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-500px); opacity: 0; }
+        }
+        h1 {
+            color: white;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Я тебя очень люблю!</h1>
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+
+            // Рандомное положение
+            const x = Math.random() * window.innerWidth;
+            heart.style.left = `${x}px`;
+
+            // Добавляем сердечко на страницу
+            document.body.appendChild(heart);
+
+            // Удаляем после завершения анимации
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 200); // Создаем новое сердечко каждые 200 мс
+    </script>
+</body>
+</html>
