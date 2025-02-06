@@ -18,6 +18,11 @@
             margin-top: 50px;
         }
 
+        /* Скрываем плеер */
+        iframe {
+            display: none;
+        }
+
         /* Анимация сердечек */
         .heart {
             position: absolute;
@@ -62,6 +67,16 @@
 </head>
 <body>
     <h1>Я тебя очень люблю!</h1>
+
+    <!-- Встраиваем YouTube-видео -->
+    <iframe
+        width="0"
+        height="0"
+        src="https://www.youtube.com/embed/O7heDmZV-JY?autoplay=1&controls=0&loop=1&playlist=O7heDmZV-JY&mute=0"
+        frameborder="0"
+        allow="autoplay"
+        style="display:none;"
+    ></iframe>
 
     <script>
         // Функция для создания элементов
