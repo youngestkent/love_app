@@ -97,9 +97,11 @@
             element.className = className;
             element.textContent = content;
 
-            // Рандомное положение
+            // Рандомное положение по горизонтали и вертикали
             const x = Math.random() * window.innerWidth;
-            element.style.left = `${x}px`;
+            const y = Math.random() * window.innerHeight;
+            element.style.left = ${x}px;
+            element.style.top = ${y}px;
 
             // Добавляем элемент на страницу
             document.body.appendChild(element);
