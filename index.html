@@ -98,31 +98,29 @@
                 svg.setAttribute("width", "50");
                 svg.setAttribute("height", "50");
 
-                // Добавляем круг
+                // Центральный круг
                 const circle = document.createElementNS(svgNS, "circle");
                 circle.setAttribute("cx", "25");
                 circle.setAttribute("cy", "25");
-                circle.setAttribute("r", "5");
+                circle.setAttribute("r", "3");
                 circle.setAttribute("fill", "gold");
                 svg.appendChild(circle);
 
-                // Добавляем линии
-                const lines = [
-                    { x1: 25, y1: 25, x2: 10, y2: 10, stroke: "red" },
-                    { x1: 25, y1: 25, x2: 40, y2: 10, stroke: "blue" },
-                    { x1: 25, y1: 25, x2: 25, y2: 40, stroke: "green" }
-                ];
+                // Добавляем разлетающиеся точки
+                const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
+                for (let i = 0; i < 10; i++) {
+                    const dot = document.createElementNS(svgNS, "circle");
+                    const angle = Math.random() * 2 * Math.PI; // Случайный угол
+                    const distance = Math.random() * 20 + 10; // Расстояние от центра
+                    const x = 25 + distance * Math.cos(angle); // Координата X
+                    const y = 25 + distance * Math.sin(angle); // Координата Y
 
-                lines.forEach(line => {
-                    const lineElement = document.createElementNS(svgNS, "line");
-                    lineElement.setAttribute("x1", line.x1);
-                    lineElement.setAttribute("y1", line.y1);
-                    lineElement.setAttribute("x2", line.x2);
-                    lineElement.setAttribute("y2", line.y2);
-                    lineElement.setAttribute("stroke", line.stroke);
-                    lineElement.setAttribute("stroke-width", "2");
-                    svg.appendChild(lineElement);
-                });
+                    dot.setAttribute("cx", x);
+                    dot.setAttribute("cy", y);
+                    dot.setAttribute("r", "2"); // Размер точки
+                    dot.setAttribute("fill", colors[Math.floor(Math.random() * colors.length)]); // Случайный цвет
+                    svg.appendChild(dot);
+                }
 
                 element.appendChild(svg);
             }
