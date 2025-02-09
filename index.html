@@ -58,6 +58,19 @@
             z-index: 4;
         }
 
+        /* Анимация взрыва */
+        @keyframes explode {
+            0% { transform: scale(0); opacity: 1; }
+            30% { transform: scale(1); opacity: 1; } /* Центральный круг виден */
+            100% { transform: scale(1); opacity: 0; } /* Частицы исчезают */
+        }
+
+        /* Анимация разлета частиц */
+        @keyframes scatter {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
         @keyframes float {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-500px); opacity: 0; }
@@ -66,12 +79,6 @@
         @keyframes fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(500px) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes explode {
-            0% { transform: scale(0); opacity: 1; }
-            50% { transform: scale(2); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 0; }
         }
     </style>
 </head>
@@ -108,17 +115,23 @@
 
                 // Добавляем разлетающиеся точки
                 const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < 20; i++) {
                     const dot = document.createElementNS(svgNS, "circle");
                     const angle = Math.random() * 2 * Math.PI; // Случайный угол
-                    const distance = Math.random() * 20 + 10; // Расстояние от центра
-                    const x = 25 + distance * Math.cos(angle); // Координата X
-                    const y = 25 + distance * Math.sin(angle); // Координата Y
+                    const distance = Math.random() * 30 + 20; // Расстояние от центра
+                    const x = distance * Math.cos(angle); // Координата X
+                    const y = distance * Math.sin(angle); // Координата Y
 
-                    dot.setAttribute("cx", x);
-                    dot.setAttribute("cy", y);
+                    dot.setAttribute("cx", "25"); // Начинаем в центре
+                    dot.setAttribute("cy", "25"); // Начинаем в центре
                     dot.setAttribute("r", "2"); // Размер точки
                     dot.setAttribute("fill", colors[Math.floor(Math.random() * colors.length)]); // Случайный цвет
+
+                    // Добавляем анимацию разлета
+                    dot.style.animation = `scatter 1s ease-out ${Math.random() * 0.5}s forwards`;
+                    dot.style.setProperty("--x", `${x}px`);
+                    dot.style.setProperty("--y", `${y}px`);
+
                     svg.appendChild(dot);
                 }
 
