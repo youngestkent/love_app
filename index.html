@@ -10,59 +10,54 @@
             margin: 0;
             font-family: Arial, sans-serif;
             text-align: center;
-            color: white; /* Цвет текста */
-            overflow-y: auto; /* Включаем вертикальную прокрутку */
-            height: 150vh; /* Делаем страницу чуть длиннее для возможности скролла */
-            position: relative; /* Для корректной работы z-index */
+            color: white;
+            overflow-y: auto;
+            height: 150vh;
+            position: relative;
         }
 
         h1 {
             margin-top: 50px;
             font-size: 36px;
-            z-index: 2; /* Текст выше изображения */
-            position: relative; /* Для корректной работы z-index */
+            z-index: 2;
+            position: relative;
         }
 
-        /* Стили для изображения */
         .centered-image {
-            display: block; /* Изображение ведет себя как блочный элемент */
-            margin: 20px auto; /* Центрируем изображение */
-            max-width: 100%; /* Изображение адаптируется под экран */
-            height: auto; /* Сохраняем пропорции */
-            border-radius: 10px; /* Добавляем закругленные углы */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Добавляем тень */
-            z-index: 1; /* Изображение ниже анимаций */
-            position: relative; /* Для корректной работы z-index */
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+            position: relative;
         }
 
-        /* Анимация сердечек */
         .heart {
             position: absolute;
             font-size: 20px;
             color: red;
             animation: float 5s ease-in-out infinite;
-            z-index: 3; /* Анимации выше всего */
+            z-index: 3;
         }
 
-        /* Анимация роз */
         .rose {
             position: absolute;
             font-size: 24px;
             color: darkred;
             animation: fall 6s ease-in-out infinite;
-            z-index: 3; /* Анимации выше всего */
+            z-index: 3;
         }
 
-        /* SVG-фейерверки */
         .firework {
             position: absolute;
             width: 50px;
             height: 50px;
             animation: explode 3s ease-in-out infinite;
-            z-index: 4; /* Фейерверки выше всех элементов */
+            z-index: 4;
         }
 
-        /* Ключевые кадры для анимаций */
         @keyframes float {
             0% { transform: translateY(0); opacity: 1; }
             100% { transform: translateY(-500px); opacity: 0; }
@@ -81,29 +76,27 @@
     </style>
 </head>
 <body>
-    <!-- Текст -->
     <h1>Я тебя очень люблю!</h1>
-
-    <!-- Изображение -->
     <img 
         class="centered-image" 
         src="https://psv4.userapi.com/s/v1/d/z7zLDB5HXRIpCq5O830blM10NzhXCsfMrop7Vf6MnFT1yIZHsn9tFjOWf0Hug1knSUnhcyyugZJPkU_vyIWMOdaSbeUeCNG_S9RGLo-mbi_3oRL_DPvsNQ/1.png" 
         alt="Романтическое изображение"
     >
-
     <script>
-        // Функция для создания элементов
         function createElement(type, className, content) {
             const element = document.createElement(type);
             element.className = className;
 
             if (type === 'div') {
-                element.textContent = content; // Для смайликов
+                element.textContent = content;
             } else if (type === 'svg') {
-                // Создаем SVG-фейерверк
-                const svgNS = "https://www.w3.org/TR/SVG2/"; // Пространство имен SVG
-                element.setAttribute("viewBox", "0 0 50 50"); // Устанавливаем viewBox
-                element.setAttribute("xmlns", svgNS); // Добавляем пространство имен
+                const svgNS = "http://www.w3.org/2000/svg"; // Пространство имен SVG
+
+                // Создаем SVG-элемент
+                const svg = document.createElementNS(svgNS, "svg");
+                svg.setAttribute("viewBox", "0 0 50 50");
+                svg.setAttribute("width", "50");
+                svg.setAttribute("height", "50");
 
                 // Добавляем круг
                 const circle = document.createElementNS(svgNS, "circle");
@@ -111,7 +104,7 @@
                 circle.setAttribute("cy", "25");
                 circle.setAttribute("r", "5");
                 circle.setAttribute("fill", "gold");
-                element.appendChild(circle);
+                svg.appendChild(circle);
 
                 // Добавляем линии
                 const lines = [
@@ -128,30 +121,23 @@
                     lineElement.setAttribute("y2", line.y2);
                     lineElement.setAttribute("stroke", line.stroke);
                     lineElement.setAttribute("stroke-width", "2");
-                    element.appendChild(lineElement);
+                    svg.appendChild(lineElement);
                 });
+
+                element.appendChild(svg);
             }
 
-            // Рандомное положение по горизонтали и вертикали
-            const x = Math.random() * (window.innerWidth - 50); // Оставляем отступ справа
-            const y = Math.random() * (window.innerHeight - 50); // Оставляем отступ снизу
+            const x = Math.random() * (window.innerWidth - 50);
+            const y = Math.random() * (window.innerHeight - 50);
             element.style.left = `${x}px`;
             element.style.top = `${y}px`;
 
-            // Добавляем элемент на страницу
             document.body.appendChild(element);
-
-            // Удаляем после завершения анимации
             setTimeout(() => element.remove(), 6000);
         }
 
-        // Создание сердечек
         setInterval(() => createElement('div', 'heart', '❤️'), 200);
-
-        // Создание роз
         setInterval(() => createElement('div', 'rose', '🌹'), 400);
-
-        // Создание фейерверков
         setInterval(() => createElement('svg', 'firework'), 800);
     </script>
 </body>
