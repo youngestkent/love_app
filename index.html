@@ -52,13 +52,12 @@
             z-index: 3; /* Анимации выше всего */
         }
 
-        /* Анимация фейерверков */
+        /* SVG-фейерверки */
         .firework {
             position: absolute;
-            font-size: 30px;
-            color: gold;
+            width: 50px;
+            height: 50px;
             animation: explode 3s ease-in-out infinite;
-            z-index: 3; /* Анимации выше всего */
         }
 
         /* Ключевые кадры для анимаций */
@@ -93,15 +92,26 @@
     <script>
         // Функция для создания элементов
         function createElement(type, className, content) {
-            const element = document.createElement('div');
+            const element = document.createElement(type);
             element.className = className;
-            element.textContent = content;
+
+            if (type === 'div') {
+                element.textContent = content; // Для смайликов
+            } else if (type === 'svg') {
+                // Создаем SVG-фейерверк
+                element.innerHTML = `
+                    <circle cx="25" cy="25" r="5" fill="gold"></circle>
+                    <line x1="25" y1="25" x2="10" y2="10" stroke="red" stroke-width="2"></line>
+                    <line x1="25" y1="25" x2="40" y2="10" stroke="blue" stroke-width="2"></line>
+                    <line x1="25" y1="25" x2="25" y2="40" stroke="green" stroke-width="2"></line>
+                `;
+            }
 
             // Рандомное положение по горизонтали и вертикали
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            element.style.left = ${x}px;
-            element.style.top = ${y}px;
+            const x = Math.random() * (window.innerWidth - 50); // Оставляем отступ справа
+            const y = Math.random() * (window.innerHeight - 50); // Оставляем отступ снизу
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
 
             // Добавляем элемент на страницу
             document.body.appendChild(element);
@@ -117,7 +127,7 @@
         setInterval(() => createElement('div', 'rose', '🌹'), 400);
 
         // Создание фейерверков
-        setInterval(() => createElement('div', 'firework', '✨'), 800);
+        setInterval(() => createElement('svg', 'firework'), 800);
     </script>
 </body>
 </html>
