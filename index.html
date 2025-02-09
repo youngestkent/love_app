@@ -99,12 +99,35 @@
                 element.textContent = content; // Для смайликов
             } else if (type === 'svg') {
                 // Создаем SVG-фейерверк
-                element.innerHTML = `
-                    <circle cx="25" cy="25" r="5" fill="gold"></circle>
-                    <line x1="25" y1="25" x2="10" y2="10" stroke="red" stroke-width="2"></line>
-                    <line x1="25" y1="25" x2="40" y2="10" stroke="blue" stroke-width="2"></line>
-                    <line x1="25" y1="25" x2="25" y2="40" stroke="green" stroke-width="2"></line>
-                `;
+                const svgNS = "http://www.w3.org/2000/svg"; // Пространство имен SVG
+                element.setAttribute("viewBox", "0 0 50 50"); // Устанавливаем viewBox
+                element.setAttribute("xmlns", svgNS); // Добавляем пространство имен
+
+                // Добавляем круг
+                const circle = document.createElementNS(svgNS, "circle");
+                circle.setAttribute("cx", "25");
+                circle.setAttribute("cy", "25");
+                circle.setAttribute("r", "5");
+                circle.setAttribute("fill", "gold");
+                element.appendChild(circle);
+
+                // Добавляем линии
+                const lines = [
+                    { x1: 25, y1: 25, x2: 10, y2: 10, stroke: "red" },
+                    { x1: 25, y1: 25, x2: 40, y2: 10, stroke: "blue" },
+                    { x1: 25, y1: 25, x2: 25, y2: 40, stroke: "green" }
+                ];
+
+                lines.forEach(line => {
+                    const lineElement = document.createElementNS(svgNS, "line");
+                    lineElement.setAttribute("x1", line.x1);
+                    lineElement.setAttribute("y1", line.y1);
+                    lineElement.setAttribute("x2", line.x2);
+                    lineElement.setAttribute("y2", line.y2);
+                    lineElement.setAttribute("stroke", line.stroke);
+                    lineElement.setAttribute("stroke-width", "2");
+                    element.appendChild(lineElement);
+                });
             }
 
             // Рандомное положение по горизонтали и вертикали
