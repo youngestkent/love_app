@@ -8,11 +8,11 @@
         body {
             background-color: pink;
             margin: 0;
-            overflow: hidden;
             font-family: Arial, sans-serif;
             text-align: center;
             color: white; /* Цвет текста */
-            position: relative; /* Делаем body контейнером для позиционирования */
+            overflow-y: auto; /* Включаем вертикальную прокрутку */
+            height: 150vh; /* Делаем страницу чуть длиннее для возможности скролла */
         }
 
         h1 {
@@ -26,7 +26,7 @@
         .centered-image {
             display: block; /* Изображение ведет себя как блочный элемент */
             margin: 20px auto; /* Центрируем изображение */
-            max-width: 30%; /* Изображение адаптируется под экран */
+            max-width: 100%; /* Изображение адаптируется под экран */
             height: auto; /* Сохраняем пропорции */
             border-radius: 10px; /* Добавляем закругленные углы */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Добавляем тень */
@@ -81,12 +81,12 @@
 </head>
 <body>
     <!-- Текст -->
-    <h1>Я тебя очень сильно люблю. Мы???? </h1>
+    <h1>Я тебя очень люблю!</h1>
 
     <!-- Изображение -->
     <img 
         class="centered-image" 
-        src="https://data.chpic.su/stickers/b/BiskvitVanillaBezTeksta/BiskvitVanillaBezTeksta_001.webp?v=1718873645" 
+        src="https://youngestkent.github.io/love_app/image.jpg" 
         alt="Романтическое изображение"
     >
 
